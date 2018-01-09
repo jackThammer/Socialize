@@ -1,0 +1,7 @@
+<div id="input_post_container"class="container">
+  <form id="meow-form" action="" style="text-align: center; margin-bottom: 1.75em;">
+      <input id="input_post" name="meow" type="text" size="64" />
+      <!--message:$('#meow').val(),-->
+      <button type="submit" class="btn btn-primary" onclick="addPost();return false;">Post</button>
+  </form>
+</div>
