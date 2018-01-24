@@ -1,55 +1,156 @@
 <!DOCTYPE html>
 <html>
-<title>Socialize</title>
-<link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
-<link rel="stylesheet" href="css/styles.css">
-<style media="screen">
-  #profile {display: none}
-</style>
+  <meta charset="utf-8">
+  <title>Socialize</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/header.css">
+
   <body>
-  <script type="text/javascript" src="css/functions.js"></script>
-  <script type="text/javascript" src="src/JS-sdk.js"></script>
-  <script type="text/javascript" src="src/setElements.js"></script>
-<!--  <script type="text/javascript" src="src/testAPI.js"></script>
-  <script type="text/javascript" src="test/testPageAPI.js"></script>
--->
-  <script type="text/javascript" src="src/pages.js"></script>
-  <script type="text/javascript" src="src/pagesAPI.js"></script>
-  <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Socialize</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-      <button href="index.html" class="dropbtn">Home </button>
-      </li>
-      <li class="nav-item active">
-        <div class="dropdown">
-          <button id="dropdown_pages" onclick="myFunction()" class="dropbtn">Pages</button>
-          <div id="myDropdown" class="dropdown-content"></div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="css/functions.js"></script>
+      <script type="text/javascript" src="src/JS-sdk.js"></script>
+      <script type="text/javascript" src="src/setElements.js"></script>
+    <!--  <script type="text/javascript" src="src/testAPI.js"></script>
+      <script type="text/javascript" src="test/testPageAPI.js"></script>
+      <script type="text/javascript" src="test/testVideoUploadAPI.js"></script>-->
+      <script type="text/javascript" src="src/pages/pages.js"></script>
+      <script type="text/javascript" src="src/API/pagesAPI.js"></script>
+      <script type="text/javascript" src="src/accessTokenAPI.js"></script>
+      <script type="text/javascript" src="src/API/manage_pagesAPI.js"></script>
+      <script type="text/javascript" src="src/pages/build.js"></script>
+      <script type="text/javascript" src="src/API/insightsAPI.js"></script>
+      <script type="text/javascript" src="src/API/uploadAPI.js"></script>
+
+      <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+
+          <a class="navbar-brand" href="#">Socialize</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault"  aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation" style="">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarsDefault">
+            <ul class="navbar-nav mr-auto">
+               <li class="nav-item dropdown">
+               <button href="index.html"class="btn btn-primary">Home </button>
+               </li>
+               <li class="nav-item dropdown">
+                 <div class="dropdown">
+                   <button id="dropdown_pages" onclick="myFunction()" class="btn btn-primary">Pages</button>
+                   <div id="myDropdown" class="dropdown-content"></div>
+                 </div>
+               </li>
+            </ul>
+            <ul class="nav navbar-nav ml-auto">
+               <li class="nav-item dropdown">
+                 <a class=nav-link id="logout" href="#" onclick="logout()">Logout</a>
+               </li>
+               <fb:login-button
+                 id="fb-btn";
+                 scope="public_profile,email,user_posts,manage_pages,publish_pages,publish_actions,read_insights"
+                 onlogin="checkLoginState();">
+               </fb:login-button>
+            </ul>
+          </div>
+      </nav>
+
+    <div class="bs-component">
+
+      <div id="heading"class="bs-component">
+        <div class="jumbotron">
+          <div class="sectionHeader">
+      			<span class="header ver2">
+                <em>Log in to view your profile</em>
+      			</span>
+      		</div>
         </div>
-      </li>
-    </ul>
+      </div>
+      <div id=""class="bs-component">
+        <div id="alert_box" class="jumbotron">
+          <div  class="alert">
+              <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+              <div id="alert_message">
+              </div>
+          </div>
+          <div id="success_box" class="alert info">
+              <span class="closebtn">&times;</span>
+              <div id="success_message">
+              </div>
+          </div>
+        </div>
+      </div>
+      <div id="_Login_body" class="bs-component">
+        <div class="row">
+          <div class="col-lg-2">
+            <div class="">
+            </div>
+          </div>
+          <div class="col-lg-8">
+              <div  class="bs-component">
+                <div id="isPublished_button" class="bs-component"></div>
+                    <div id="input_post_container"class="form-group"><br><br><br>
+                      <form id="post-form" name="post_form" >
+                          <lable style="font-weight: bold;size:200">Post :</lable>
+                          <input id="input_post" class="form-control" name="input_post" type="text" size="64"  placeholder="  What's on your mind . . ."><br>
+                          <input  id="time" class="form-control" name="time" type="text" size="64" placeholder="  time sceduled . . ." />
 
-    <ul class="navbar-nav navbar-right">
-      <li ><a class=nav-link id="logout" href="#" onclick="logout()">Logout</a></li>
-      <fb:login-button
-      id="fb-btn";
-      scope="public_profile,email,user_posts,manage_pages,publish_pages,publish_actions"
-      onlogin="checkLoginState();">
-      </fb:login-button>
-    </ul>
-  </div>
-</nav>
-<div class="container">
-    <h3 id="heading">Log in to view your profile</h3>
+                          <lable style="font-weight: bold;size:200">Select:</lable>
+                      <input style="display:none" id="input_image_url" class="form-control" name="input_image_url" type="text" size="64" placeholder="  Pase Image URL . . ." />
+                        <select id="_Published" class="custom-select">
+                              <option value="publish">Publish</option>
+                              <option value="unpublish">Un-Publish</option>
+                              <option value="scheduled">Scheduled Post</option>
+                          </select><br><br><br>
+                          <button type="submit" class="btn btn-primary " onclick="validateForm();return false;">Post</button>
+                        </form>
+                        </div>
 
-      <h3 id="Page_Name"></h3>
-      <div id="profile"></div>
-      <div id="feed"></div>
-</div>
+                  <div class="row">
+                    <h3 id="Page_Name"></h3>
+                    <div id="profile"class="bs-component"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-5">
+                        <div id="feed"class="bs-component"></div>
+                      </div>
+                      <div class="col-lg-5">
+                        <div id="unpublished_feed"class="bs-component"></div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
 
-  </body>
+              <div class="col-lg-2">
+                <div class="row"><br>
+                  <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Post Images</div>
+                      <div class="card-body">
+                        <form id="upload-photo-form" name="upload-photo-form" target="upload_iframe" method="post" enctype="multipart/form-data">
+                          <input id="upload-photo-form-file" name="file" size="27" type="file" />
+                        </form><br>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="localImageUpload()">Upload Image</button>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                  <div class="card-header">Post Videos</div>
+                    <div class="card-body">
+                        <form id="upload-video-form" name="upload-video-form" target="upload_iframe" method="post" enctype="multipart/form-data">
+                          <input id="upload-video-form-file" name="file" size="27" type="file" />
+                        </form><br>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="localVideoUpload()">Upload Video</button>
+                      </div>
+                  </div>
+              </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        </div>
+</body>
 </html>

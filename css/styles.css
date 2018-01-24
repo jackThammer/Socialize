@@ -1,3 +1,4 @@
+#profile ,#success_box,#alert_box,#_Login_body,#logout,#dropdown_pages{display: none}
 /* Dropdown Button */
 .dropbtn {
     background-color:#038BD1 ;
@@ -42,3 +43,24 @@
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
+
+/*For the alert_box*/
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+}
+.alert.info {background-color: #2196F3;}
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.closebtn:hover {
+    color: black;
+}

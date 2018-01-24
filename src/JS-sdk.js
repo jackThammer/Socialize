@@ -1,4 +1,6 @@
 
+var app={userID:"",post:{}};
+
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '2085524628325574',
@@ -24,7 +26,8 @@
 
 function statusChangeCallback(response){
   if(response.status==='connected'){
-    console.log('Logged in and athenticated');
+    console.log('Logged in and athenticated ');
+    app.userID=response.authResponse.userID;
     setElements(true);
     //testAPI();
     //testPageAPI('TVSTest');
